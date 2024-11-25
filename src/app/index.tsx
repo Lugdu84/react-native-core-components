@@ -16,6 +16,7 @@ const routes: ItemRoute[] = [
 	{ href: '/action-sheet-i-o-s', text: 'ActionSheetIOS' },
 	{ href: '/scroll-view', text: 'ScrollView' },
 	{ href: '/keyboard-avoiding-view', text: 'KeyboardAvoidingView' },
+	{ href: '/style-sheet', text: 'StyleSheet' },
 ];
 
 export default function App() {

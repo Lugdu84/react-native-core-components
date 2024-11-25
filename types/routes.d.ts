@@ -12,7 +12,8 @@ type Route =
 	| '/alert'
 	| '/action-sheet-i-o-s'
 	| '/scroll-view'
-	| '/keyboard-avoiding-view';
+	| '/keyboard-avoiding-view'
+	| '/style-sheet';
 
 type ItemRoute = {
 	href: Route;
