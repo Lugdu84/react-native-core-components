@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import CardLink from '@/components/CardLink';
 
 const routes: ItemRoute[] = [
+	{ href: '/styles', text: 'Styles' },
 	{ href: '/view', text: 'View' },
 	{ href: '/text', text: 'Text' },
 	{ href: '/text-input', text: 'TextInput' },

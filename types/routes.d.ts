@@ -1,4 +1,5 @@
 type Route =
+	| '/styles'
 	| '/view'
 	| '/text'
 	| '/image'
