@@ -12,7 +12,7 @@ export default function StylesScreen() {
 			<View style={mesStyles.view1} />
 			<View style={mesStyles.view2} />
 			<View style={{ backgroundColor: 'purple', height: 80, width: 50 }} />
-			<View style={styles.view3} />
+			<View style={[styles.view3, styles.shadow]} />
 			<View
 				style={[styles.view3, { borderRadius: 80 }, { backgroundColor: 'red' }]}
 			/>
@@ -57,10 +57,23 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#ffffff',
+		alignItems: 'center',
 	},
 	view3: {
 		backgroundColor: 'orange',
 		height: 80,
-		width: 50,
+		width: 200,
+		margin: 10,
+		borderRadius: 10,
+	},
+	shadow: {
+		// pour toutes les plateformes
+		shadowColor: 'black',
+		// pour ios et le web
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 4,
+		// pour android
+		elevation: 10,
 	},
 });
