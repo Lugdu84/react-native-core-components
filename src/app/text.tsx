@@ -17,6 +17,12 @@ export default function TextScreen() {
 				Ceci est un texte important
 				<Text style={styles.importantText}> en gras et rouge</Text>
 			</Text>
+			<View style={styles.viewText}>
+				<Text style={styles.textInView}>Texte dans une View</Text>
+			</View>
+			<Text style={styles.verticalCenter}>
+				Texte centré verticalement, mais multi ligne qui prend beacoup de places
+			</Text>
 		</View>
 	);
 }
@@ -33,6 +39,25 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#ffffff',
 		padding: 10,
+		gap: 10,
+	},
+	viewText: {
+		backgroundColor: 'lightgreen',
+		height: 100,
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	textInView: {
+		backgroundColor: 'red',
+		// alignSelf: 'center',
+		// textAlign: 'center',
+	},
+	verticalCenter: {
+		backgroundColor: 'lightblue',
+		// height: 100,
+		textAlign: 'center',
+		lineHeight: 50,
 	},
 	text: {
 		fontSize: 16,
@@ -43,7 +68,7 @@ const styles = StyleSheet.create({
 	shadow: {
 		textShadowOffset: { width: 2, height: 2 },
 		textShadowRadius: 2,
-		textShadowColor: 'gray',
+		textShadowColor: 'rgba(0, 0, 0, 0.75)',
 		opacity: 0.6,
 	},
 	decoration: {
