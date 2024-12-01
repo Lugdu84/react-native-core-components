@@ -20,9 +20,7 @@ export default function TextScreen() {
 			<View style={styles.viewText}>
 				<Text style={styles.textInView}>Texte dans une View</Text>
 			</View>
-			<Text style={styles.verticalCenter}>
-				Texte centré verticalement, mais multi ligne qui prend beacoup de places
-			</Text>
+			<Text style={styles.verticalCenter}>Texte centré verticalement</Text>
 		</View>
 	);
 }
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'lightblue',
 		// height: 100,
 		textAlign: 'center',
-		lineHeight: 50,
+		lineHeight: 100,
 	},
 	text: {
 		fontSize: 16,
