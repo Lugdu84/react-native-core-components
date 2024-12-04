@@ -8,11 +8,14 @@ export default function StylesScreen() {
 	return (
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: capitalizeFirstLetter(nameOfScreen) }} />
-			<View style={monStyle} />
+			{/* <View style={monStyle} />
 			<View style={mesStyles.view1} />
-			<View style={mesStyles.view2} />
+			<View style={mesStyles.view2} /> */}
 			<View style={{ backgroundColor: 'purple', height: 80, width: 50 }} />
-			<View style={[styles.view3, styles.shadow]} />
+			<Text style={{ textAlign: 'center', fontSize: 26 }}>
+				Nouvelle propriété pour définir des shadow sur iOS et android
+			</Text>
+			<View style={[styles.view3, styles.newShadowApi]} />
 			<View
 				style={[styles.view3, { borderRadius: 80 }, { backgroundColor: 'red' }]}
 			/>
@@ -58,6 +61,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#ffffff',
 		alignItems: 'center',
+		paddingTop: 50,
+		// justifyContent: 'center',
 	},
 	view3: {
 		backgroundColor: 'orange',
@@ -67,6 +72,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	shadow: {
+		// ancienne api
 		// pour toutes les plateformes
 		shadowColor: 'black',
 		// pour ios et le web
@@ -75,5 +81,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		// pour android
 		elevation: 10,
+	},
+	newShadowApi: {
+		// nouvelle api, à partir de React Native 0.76
+		boxShadow: ' 2 2 3 4 rgba(0,0,0,0.3)',
 	},
 });
