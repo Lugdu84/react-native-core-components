@@ -1,11 +1,12 @@
 import { capitalizeFirstLetter } from '@/lib/formatString';
 import { Entypo } from '@expo/vector-icons';
 import { Stack, usePathname } from 'expo-router';
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
 	NativeScrollEvent,
 	NativeSyntheticEvent,
 	Pressable,
+	RefreshControl,
 	ScrollView,
 	StyleSheet,
 	View,
@@ -13,6 +14,8 @@ import {
 
 export default function ScrollViewScreen() {
 	const nameOfScreen = usePathname();
+
+	const [refreshing, setRefreshing] = useState(false);
 
 	const scrollViewRef = useRef<ScrollView>(null);
 	const scrollViewHorizontalRef = useRef<ScrollView>(null);
@@ -48,10 +51,23 @@ export default function ScrollViewScreen() {
 		scrollViewHorizontalRef.current?.scrollTo({ x: viewXRef.current });
 	};
 
+	const onRefresh = useCallback(() => {
+		setRefreshing(true);
+		setTimeout(() => {
+			setRefreshing(false);
+		}, 2000);
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: capitalizeFirstLetter(nameOfScreen) }} />
 			<ScrollView
+				refreshControl={
+					<RefreshControl
+						refreshing={refreshing}
+						onRefresh={onRefresh}
+					/>
+				}
 				showsVerticalScrollIndicator={false}
 				// horizontal
 				// onScroll={showMesure}
