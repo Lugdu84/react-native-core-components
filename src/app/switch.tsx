@@ -1,5 +1,6 @@
 import { capitalizeFirstLetter } from '@/lib/formatString';
 import { Stack, usePathname } from 'expo-router';
+
 import { StyleSheet, View } from 'react-native';
 
 export default function SwitchScreen() {
