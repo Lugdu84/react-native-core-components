@@ -1,15 +1,20 @@
+import ActionSheet from '@/components/ActionSheet';
 import { capitalizeFirstLetter } from '@/lib/formatString';
 import { Stack, usePathname } from 'expo-router';
+import { useState } from 'react';
 import {
 	Button,
 	StyleSheet,
 	View,
 	ActionSheetIOS,
 	Platform,
+	Share,
 } from 'react-native';
 
 export default function ActionSheretIOSScreen() {
 	const nameOfScreen = usePathname();
+
+	const [actionSheetIsVisible, setActionSheetIsVisible] = useState(false);
 
 	const showActions = () => {
 		if (Platform.OS === 'ios') {
@@ -26,18 +31,18 @@ export default function ActionSheretIOSScreen() {
 				},
 				(buttonIndex) => {
 					if (buttonIndex === 0) {
-						alert('Modifier le contact');
+						console.log('Modifier le contact');
 					} else if (buttonIndex === 1) {
-						alert('Supprimer le contact');
+						console.log('Supprimer le contact');
 					} else if (buttonIndex === 2) {
-						alert('Bouton désactivé');
+						console.log('Bouton désactivé');
 					} else {
-						alert('Annuler');
+						console.log('Annuler');
 					}
 				}
 			);
 		} else {
-			alert('ActionSheetIOS is only available on iOS');
+			setActionSheetIsVisible(true);
 		}
 	};
 
@@ -75,6 +80,10 @@ export default function ActionSheretIOSScreen() {
 			<Button
 				title="Share Actions"
 				onPress={showShareActions}
+			/>
+			<ActionSheet
+				visible={actionSheetIsVisible}
+				hide={setActionSheetIsVisible}
 			/>
 		</View>
 	);
