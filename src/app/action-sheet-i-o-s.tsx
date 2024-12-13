@@ -1,3 +1,4 @@
+import ActionSheetWeb from '@/components/ActionSheetWeb';
 import ActionSheet from '@/components/ActionSheet';
 import { capitalizeFirstLetter } from '@/lib/formatString';
 import { Stack, usePathname } from 'expo-router';
@@ -8,7 +9,7 @@ import {
 	View,
 	ActionSheetIOS,
 	Platform,
-	Share,
+	ActionSheetIOSOptions,
 } from 'react-native';
 
 export default function ActionSheretIOSScreen() {
@@ -16,32 +17,37 @@ export default function ActionSheretIOSScreen() {
 
 	const [actionSheetIsVisible, setActionSheetIsVisible] = useState(false);
 
+	const actions: ActionSheetIOSOptions = {
+		options: ['Modifier', 'Supprimer', 'Bouton désactivé', 'Annuler'],
+		title: 'Modifier ou supprimer le contact',
+		message: 'Voulez-vous modifier ou supprimer le contact ?',
+		cancelButtonIndex: 3,
+		destructiveButtonIndex: [1],
+		tintColor: 'green',
+		cancelButtonTintColor: 'violet',
+		disabledButtonIndices: [2],
+	};
+
+	const handleActionSelection = (buttonIndex?: number) => {
+		setActionSheetIsVisible(false);
+		if (buttonIndex === 0) {
+			console.log('Modifier le contact');
+		} else if (buttonIndex === 1) {
+			console.log('Supprimer le contact');
+		} else if (buttonIndex === 2) {
+			console.log('Bouton désactivé');
+		} else {
+			console.log('Annuler');
+		}
+	};
+
 	const showActions = () => {
 		if (Platform.OS === 'ios') {
-			ActionSheetIOS.showActionSheetWithOptions(
-				{
-					options: ['Modifier', 'Supprimer', 'Bouton désactivé', 'Annuler'],
-					title: 'Modifier ou supprimer le contact',
-					message: 'Voulez-vous modifier ou supprimer le contact ?',
-					cancelButtonIndex: 3,
-					destructiveButtonIndex: [1],
-					tintColor: 'green',
-					cancelButtonTintColor: 'violet',
-					disabledButtonIndices: [2],
-				},
-				(buttonIndex) => {
-					if (buttonIndex === 0) {
-						console.log('Modifier le contact');
-					} else if (buttonIndex === 1) {
-						console.log('Supprimer le contact');
-					} else if (buttonIndex === 2) {
-						console.log('Bouton désactivé');
-					} else {
-						console.log('Annuler');
-					}
-				}
+			ActionSheetIOS.showActionSheetWithOptions(actions, (buttonIndex) =>
+				handleActionSelection(buttonIndex)
 			);
 		} else {
+			// alert('ActionSheetIOS is only available on iOS');
 			setActionSheetIsVisible(true);
 		}
 	};
@@ -83,8 +89,14 @@ export default function ActionSheretIOSScreen() {
 			/>
 			<ActionSheet
 				visible={actionSheetIsVisible}
-				hide={setActionSheetIsVisible}
+				onActionSelection={handleActionSelection}
+				actions={actions}
 			/>
+			{/* <ActionSheetWeb
+				visible={actionSheetIsVisible}
+				onActionSelection={handleActionSelection}
+				actions={actions}
+			/> */}
 		</View>
 	);
 }

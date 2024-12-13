@@ -5,6 +5,7 @@ import {
 	StyleSheet,
 	Pressable,
 	ActionSheetIOSOptions,
+	TouchableWithoutFeedback,
 } from 'react-native';
 
 type ActionSheetProps = {
@@ -13,7 +14,7 @@ type ActionSheetProps = {
 	actions: ActionSheetIOSOptions;
 };
 
-export default function ActionSheet({
+export default function ActionSheetWeb({
 	visible,
 	onActionSelection,
 	actions,
@@ -60,45 +61,48 @@ export default function ActionSheet({
 			transparent
 			style={styles.container}
 			visible={visible}>
-			<Pressable
-				style={styles.modalView}
-				onPress={() => onActionSelection()}>
-				<View
-					style={styles.buttons}
-					onStartShouldSetResponder={() => true}>
-					<View style={styles.rowModal}>
-						<Text style={styles.title}>{title}</Text>
-						<Text style={styles.subtitle}>{message}</Text>
-					</View>
-					{options.map((text, index) => {
-						if (index === cancelButtonIndex) return null;
-						return (
-							<Pressable
-								disabled={isInArrayOrEqual(disabledButtonIndices, index)}
-								key={index}
-								onPress={() => onActionSelection(index)}
-								style={[styles.rowModal, styles.separator]}>
-								<Text style={[styles.textButton, { color: getColor(index) }]}>
-									{text}
-								</Text>
-							</Pressable>
-						);
-					})}
+			<TouchableWithoutFeedback onPress={() => onActionSelection()}>
+				<View style={styles.modalView}>
+					<TouchableWithoutFeedback>
+						<View style={styles.contentModal}>
+							<View style={styles.buttons}>
+								<View style={styles.rowModal}>
+									<Text style={styles.title}>{title}</Text>
+									<Text style={styles.subtitle}>{message}</Text>
+								</View>
+								{options.map((text, index) => {
+									if (index === cancelButtonIndex) return null;
+									return (
+										<Pressable
+											disabled={isInArrayOrEqual(disabledButtonIndices, index)}
+											key={index}
+											onPress={() => onActionSelection(index)}
+											style={[styles.rowModal, styles.separator]}>
+											<Text
+												style={[styles.textButton, { color: getColor(index) }]}>
+												{text}
+											</Text>
+										</Pressable>
+									);
+								})}
+							</View>
+							{cancelButtonIndex && (
+								<Pressable
+									style={[styles.rowModal, styles.buttons]}
+									onPress={() => onActionSelection(cancelButtonIndex)}>
+									<Text
+										style={[
+											styles.textButton,
+											{ color: getColor(cancelButtonIndex) },
+										]}>
+										Annuler
+									</Text>
+								</Pressable>
+							)}
+						</View>
+					</TouchableWithoutFeedback>
 				</View>
-				{cancelButtonIndex && (
-					<Pressable
-						style={[styles.rowModal, styles.buttons]}
-						onPress={() => onActionSelection(cancelButtonIndex)}>
-						<Text
-							style={[
-								styles.textButton,
-								{ color: getColor(cancelButtonIndex) },
-							]}>
-							Annuler
-						</Text>
-					</Pressable>
-				)}
-			</Pressable>
+			</TouchableWithoutFeedback>
 		</Modal>
 	);
 }
@@ -111,8 +115,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'flex-end',
 		padding: 10,
-		gap: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.2)',
+	},
+	contentModal: {
+		gap: 10,
 	},
 	buttons: {
 		backgroundColor: 'rgb(236, 238, 236)',
